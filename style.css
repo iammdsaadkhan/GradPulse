@@ -1,1 +1,153 @@
+/* 1. COLOR VARIABLES (Dark Mode is now DEFAULT) */
+:root {
+  --bg-overlay: rgba(0, 0, 0, 0.6); /* Darkens the video */
+  --card-bg: rgba(15, 23, 42, 0.75); /* Glass effect dark */
+  --text: #e5e7eb;
+  --text-muted: #94a3b8;
+  --btn: #38bdf8;
+  --highlight: rgba(30, 41, 59, 0.7);
+  --input-bg: rgba(0, 0, 0, 0.3);
+  --border: rgba(255, 255, 255, 0.1);
+}
 
+/* Light Mode Overrides */
+body.light {
+  --bg-overlay: rgba(255, 255, 255, 0.4);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --text: #0f172a;
+  --text-muted: #475569;
+  --btn: #2563eb;
+  --highlight: rgba(241, 245, 249, 0.8);
+  --input-bg: #ffffff;
+  --border: #cbd5e1;
+}
+
+/* 2. BACKGROUND VIDEO STYLES */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  object-fit: cover;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-overlay);
+  z-index: -1;
+  backdrop-filter: blur(3px); /* Optional: Blurs the video slightly */
+  transition: background 0.3s ease;
+}
+
+/* 3. GENERAL STYLES */
+body {
+  margin: 0;
+  padding: 20px;
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.card {
+  max-width: 500px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* SLIDER TOGGLE SWITCH */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .slider { background-color: var(--btn); }
+input:checked + .slider:before { transform: translateX(26px); }
+
+/* INPUTS & BUTTONS */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text);
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+input::placeholder { color: var(--text-muted); }
+
+button {
+  background: var(--btn);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: opacity 0.2s;
+}
+button:hover { opacity: 0.9; }
+
+/* CLOCK & TEXT */
+.clock { text-align: center; margin-bottom: 25px; }
+.time { font-size: 3.5rem; font-weight: 700; letter-spacing: 2px; line-height: 1; }
+.date { font-size: 1.1rem; color: var(--text-muted); margin-top: 5px; }
+
+h3 { text-align: center; margin-bottom: 15px; font-weight: 600; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+.exam-row {
+  display: flex;
+  justify-content: space-between;
+  background: var(--highlight);
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+.exam-date { font-weight: bold; color: var(--btn); }
