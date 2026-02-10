@@ -72,8 +72,8 @@ As a BS Degree student, calculating scores and CGPA manually after each term is 
 ## 👤 Author
 
 **Md Saad Khan**
-BS in Electronic System
-Indian Institute of Technology Madras
+* BS in Electronic System
+* Indian Institute of Technology Madras
 
 ---
 
