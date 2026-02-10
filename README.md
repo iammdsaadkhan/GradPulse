@@ -75,7 +75,7 @@ As a BS Degree student, calculating scores and CGPA manually after each term is 
 BS in Electronic Systems
 Indian Institute of Technology Madras
 
-🔗 Linktree: [https://linktr.ee/iammdsaadkhan](https://linktr.ee/iammdsaadkhan)
+🔗 **Linktree:** [iammdsaadkhan](https://linktr.ee/iammdsaadkhan)
 
 ---
 
