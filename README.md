@@ -9,6 +9,7 @@ This project was originally developed **a few months prior** for personal academ
 ## 🚀 What This Project Does
 
 - Allows users to input:
+  - GAA Average
   - Quiz 1 marks
   - Quiz 2 marks
   - End Term marks
