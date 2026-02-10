@@ -2,7 +2,7 @@
 
 A lightweight **web-based score calculator** built to help IIT Madras BS Degree students estimate their **course score and CGPA** based on **Quiz 1, Quiz 2, and End Term** marks, strictly following **IITM evaluation rules**.
 
-This project was originally developed **a few months prior** for personal academic use and learning purposes — *without using any LLMs*. The same project is being submitted here as part of the **House Tech Challenge**, as the challenge theme aligns perfectly with this tool’s core functionality.
+This project was originally developed **a few months prior** for personal academic use and learning purposes — *without using any LLMs*. The same project is being submitted here as part of the **Namdapha Tech Challenge**, as the challenge theme aligns perfectly with this tool’s core functionality.
 
 ---
 
