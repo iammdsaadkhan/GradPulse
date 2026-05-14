@@ -13,123 +13,395 @@
         <source src="background.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    
+
     <div class="overlay"></div>
 
     <div class="card">
 
         <div class="header-row">
-            <div style="font-size:0.9rem; opacity:0.7">IITM Student Dashboard</div>
+            <div style="font-size:0.9rem; opacity:0.7">
+                IITM Student Dashboard
+            </div>
+
             <label class="switch">
                 <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
                 <span class="slider"></span>
             </label>
         </div>
 
+        <!-- CLOCK -->
+
         <div class="clock">
             <div class="time" id="clockTime">--:--</div>
             <div class="date" id="clockDate">---</div>
         </div>
 
+        <!-- SCORE CALCULATOR -->
+
         <h3>Score Calculator</h3>
-        <input type="number" id="gaa" placeholder="GAA (Assignment Avg)">
+
+        <input type="number" id="w1" placeholder="Week 1 Assignment">
+        <input type="number" id="w2" placeholder="Week 2 Assignment">
+        <input type="number" id="w3" placeholder="Week 3 Assignment">
+        <input type="number" id="w4" placeholder="Week 4 Assignment">
+        <input type="number" id="w5" placeholder="Week 5 Assignment">
+        <input type="number" id="w6" placeholder="Week 6 Assignment">
+        <input type="number" id="w7" placeholder="Week 7 Assignment">
+
+        <select id="quizAttendance">
+            <option value="">Quiz Attendance</option>
+            <option value="yes">Attended at least one quiz</option>
+            <option value="no">Did not attend any quiz</option>
+        </select>
+
         <input type="number" id="q1" placeholder="Quiz 1 Score">
         <input type="number" id="q2" placeholder="Quiz 2 Score">
         <input type="number" id="et" placeholder="End Term Score">
-        
+
         <button onclick="calculate()">Calculate Grade</button>
+
         <div id="result" style="text-align:center; margin-top:20px;"></div>
 
         <hr>
 
+        <!-- EXAM SCHEDULE -->
+
         <h3>Exam Schedule</h3>
+
         <select id="term" onchange="updateDates()">
             <option value="">-- Select Term --</option>
+
             <option value="jan2026">Jan 2026</option>
             <option value="may2026">May 2026</option>
             <option value="sep2026">Sep 2026</option>
+
             <option value="jan2027">Jan 2027</option>
             <option value="may2027">May 2027</option>
             <option value="sep2027">Sep 2027</option>
+
             <option value="jan2028">Jan 2028</option>
             <option value="may2028">May 2028</option>
             <option value="sep2028">Sep 2028</option>
+
             <option value="jan2029">Jan 2029</option>
             <option value="may2029">May 2029</option>
             <option value="sep2029">Sep 2029</option>
+
             <option value="jan2030">Jan 2030</option>
             <option value="may2030">May 2030</option>
             <option value="sep2030">Sep 2030</option>
         </select>
 
-        <div class="exam-row"><span>Quiz 1</span> <span class="exam-date" id="dq1">--</span></div>
-        <div class="exam-row"><span>Quiz 2</span> <span class="exam-date" id="dq2">--</span></div>
-        <div class="exam-row"><span>End Term</span> <span class="exam-date" id="det">--</span></div>
+        <div class="exam-row">
+            <span>Quiz 1</span>
+            <span class="exam-date" id="dq1">--</span>
+        </div>
+
+        <div class="exam-row">
+            <span>Quiz 2</span>
+            <span class="exam-date" id="dq2">--</span>
+        </div>
+
+        <div class="exam-row">
+            <span>End Term</span>
+            <span class="exam-date" id="det">--</span>
+        </div>
 
     </div>
 
     <script>
+
         /* THEME TOGGLE */
+
         function toggleTheme() {
             document.body.classList.toggle("light");
         }
 
         /* CLOCK */
+
         function updateClock() {
+
             const now = new Date();
-            clockTime.innerText = now.toLocaleTimeString("en-GB");
-            clockDate.innerText = now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "short", year: "numeric" });
+
+            clockTime.innerText =
+                now.toLocaleTimeString("en-GB");
+
+            clockDate.innerText =
+                now.toLocaleDateString(
+                    "en-GB",
+                    {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
         }
+
         setInterval(updateClock, 1000);
         updateClock();
 
         /* CALCULATOR */
+
         function calculate() {
-            const gaa = +document.getElementById("gaa").value || 0;
-            const q1  = +document.getElementById("q1").value || 0;
-            const q2  = +document.getElementById("q2").value || 0;
-            const et  = +document.getElementById("et").value || 0;
 
-            const opt1 = 0.6*et + 0.2*Math.max(q1, q2);
-            const opt2 = 0.4*et + 0.2*q1 + 0.3*q2;
-            let T = 0.1*gaa + Math.max(opt1, opt2) + 2;
-            if(T > 100) T = 100;
+            /* WEEKLY ASSIGNMENTS */
 
-            let grade="U", gp=0;
-            if (T>=90){grade="S";gp=10}
-            else if (T>=80){grade="A";gp=9}
-            else if (T>=70){grade="B";gp=8}
-            else if (T>=60){grade="C";gp=7}
-            else if (T>=50){grade="D";gp=6}
-            else if (T>=40){grade="E";gp=4}
+            const weeks = [
 
-            result.innerHTML = `Score: <b style="font-size:1.2rem">${T.toFixed(2)}</b> &nbsp;|&nbsp; Grade: <b style="color:var(--btn); font-size:1.2rem">${grade}</b> (${gp})`;
+                +document.getElementById("w1").value || 0,
+                +document.getElementById("w2").value || 0,
+                +document.getElementById("w3").value || 0,
+                +document.getElementById("w4").value || 0,
+                +document.getElementById("w5").value || 0,
+                +document.getElementById("w6").value || 0,
+                +document.getElementById("w7").value || 0
+
+            ];
+
+            /* BEST 5 OUT OF 7 */
+
+            const bestFive = [...weeks]
+                .sort((a, b) => b - a)
+                .slice(0, 5);
+
+            const avgBestFive =
+                bestFive.reduce((sum, val) => sum + val, 0) / 5;
+
+            /* QUIZ ATTENDANCE */
+
+            const attendedQuiz =
+                document.getElementById("quizAttendance").value === "yes";
+
+            /* ELIGIBILITY */
+
+            const eligibleForET =
+                avgBestFive >= 40 && attendedQuiz;
+
+            const q1 =
+                +document.getElementById("q1").value || 0;
+
+            const q2 =
+                +document.getElementById("q2").value || 0;
+
+            const F =
+                +document.getElementById("et").value || 0;
+
+            /* FINAL SCORE */
+
+            let T = Math.max(
+
+                0.6 * F + 0.3 * Math.max(q1, q2),
+
+                0.45 * F + 0.25 * q1 + 0.3 * q2
+
+            );
+
+            if (T > 100) T = 100;
+
+            /* GRADE */
+
+            let grade = "U";
+            let gp = 0;
+
+            if (T >= 90) {
+                grade = "S";
+                gp = 10;
+            }
+
+            else if (T >= 80) {
+                grade = "A";
+                gp = 9;
+            }
+
+            else if (T >= 70) {
+                grade = "B";
+                gp = 8;
+            }
+
+            else if (T >= 60) {
+                grade = "C";
+                gp = 7;
+            }
+
+            else if (T >= 50) {
+                grade = "D";
+                gp = 6;
+            }
+
+            else if (T >= 40) {
+                grade = "E";
+                gp = 4;
+            }
+
+            /* RESULT DISPLAY */
+
+            result.innerHTML = `
+
+                <div style="margin-bottom:15px;">
+                    <b>Best 5 Average:</b>
+                    ${avgBestFive.toFixed(2)}
+                </div>
+
+                <div style="
+                    margin-bottom:15px;
+                    color:${eligibleForET ? '#22c55e' : '#ef4444'};
+                    font-weight:bold;
+                ">
+                    ${
+                        eligibleForET
+                        ? 'Eligible for End Term Exam'
+                        : 'Not Eligible for End Term Exam'
+                    }
+                </div>
+
+                <div style="
+                    margin-bottom:10px;
+                    font-size:0.95rem;
+                    opacity:0.8;
+                ">
+                    Final Score Formula Applied
+                </div>
+
+                <div>
+                    Score:
+                    <b style="font-size:1.2rem">
+                        ${T.toFixed(2)}
+                    </b>
+
+                    &nbsp;|&nbsp;
+
+                    Grade:
+                    <b style="
+                        color:var(--btn);
+                        font-size:1.2rem;
+                    ">
+                        ${grade}
+                    </b>
+
+                    (${gp})
+                </div>
+
+            `;
         }
 
         /* DATES DATABASE */
+
         const terms = {
-            jan2026: { q1: "Sun, 15 Mar 2026", q2: "Sun, 12 Apr 2026", et: "Sun, 10 May 2026" },
-            may2026: { q1: "Sun, 19 Jul 2026", q2: "Sun, 16 Aug 2026", et: "Sun, 13 Sep 2026" },
-            sep2026: { q1: "Sun, 15 Nov 2026", q2: "Sat, 05 Dec 2026", et: "Sun, 10 Jan 2027" },
-            jan2027: { q1: "Sun, 14 Mar 2027", q2: "Sun, 11 Apr 2027", et: "Sun, 09 May 2027" },
-            may2027: { q1: "Sun, 11 Jul 2027", q2: "Sun, 22 Aug 2027", et: "Sun, 05 Sep 2027" },
-            sep2027: { q1: "Sun, 07 Nov 2027", q2: "Sun, 12 Dec 2027", et: "Sun, 09 Jan 2028" },
-            jan2028: { q1: "Sun, 12 Mar 2028", q2: "Sun, 09 Apr 2028", et: "Sun, 07 May 2028" },
-            may2028: { q1: "Sun, 16 Jul 2028", q2: "Sun, 20 Aug 2028", et: "Sun, 10 Sep 2028" },
-            sep2028: { q1: "Sun, 05 Nov 2028", q2: "Sun, 03 Dec 2028", et: "Sat, 06 Jan 2029" },
-            jan2029: { q1: "Sun, 11 Mar 2029", q2: "Sun, 15 Apr 2029", et: "Sun, 13 May 2029" },
-            may2029: { q1: "Sun, 15 Jul 2029", q2: "Sun, 26 Aug 2029", et: "Sun, 09 Sep 2029" },
-            sep2029: { q1: "Sun, 11 Nov 2029", q2: "Sun, 02 Dec 2029", et: "Sun, 06 Jan 2030" },
-            jan2030: { q1: "Sun, 10 Mar 2030", q2: "Sun, 07 Apr 2030", et: "Sun, 12 May 2030" },
-            may2030: { q1: "Sun, 14 Jul 2030", q2: "Sun, 11 Aug 2030", et: "Sun, 08 Sep 2030" },
-            sep2030: { q1: "Sun, 10 Nov 2030", q2: "Sun, 01 Dec 2030", et: "Sun, 05 Jan 2031" }
+
+            jan2026: {
+                q1: "Sun, 15 Mar 2026",
+                q2: "Sun, 12 Apr 2026",
+                et: "Sun, 10 May 2026"
+            },
+
+            may2026: {
+                q1: "Sun, 19 Jul 2026",
+                q2: "Sun, 16 Aug 2026",
+                et: "Sun, 13 Sep 2026"
+            },
+
+            sep2026: {
+                q1: "Sun, 15 Nov 2026",
+                q2: "Sat, 05 Dec 2026",
+                et: "Sun, 10 Jan 2027"
+            },
+
+            jan2027: {
+                q1: "Sun, 14 Mar 2027",
+                q2: "Sun, 11 Apr 2027",
+                et: "Sun, 09 May 2027"
+            },
+
+            may2027: {
+                q1: "Sun, 11 Jul 2027",
+                q2: "Sun, 22 Aug 2027",
+                et: "Sun, 05 Sep 2027"
+            },
+
+            sep2027: {
+                q1: "Sun, 07 Nov 2027",
+                q2: "Sun, 12 Dec 2027",
+                et: "Sun, 09 Jan 2028"
+            },
+
+            jan2028: {
+                q1: "Sun, 12 Mar 2028",
+                q2: "Sun, 09 Apr 2028",
+                et: "Sun, 07 May 2028"
+            },
+
+            may2028: {
+                q1: "Sun, 16 Jul 2028",
+                q2: "Sun, 20 Aug 2028",
+                et: "Sun, 10 Sep 2028"
+            },
+
+            sep2028: {
+                q1: "Sun, 05 Nov 2028",
+                q2: "Sun, 03 Dec 2028",
+                et: "Sat, 06 Jan 2029"
+            },
+
+            jan2029: {
+                q1: "Sun, 11 Mar 2029",
+                q2: "Sun, 15 Apr 2029",
+                et: "Sun, 13 May 2029"
+            },
+
+            may2029: {
+                q1: "Sun, 15 Jul 2029",
+                q2: "Sun, 26 Aug 2029",
+                et: "Sun, 09 Sep 2029"
+            },
+
+            sep2029: {
+                q1: "Sun, 11 Nov 2029",
+                q2: "Sun, 02 Dec 2029",
+                et: "Sun, 06 Jan 2030"
+            },
+
+            jan2030: {
+                q1: "Sun, 10 Mar 2030",
+                q2: "Sun, 07 Apr 2030",
+                et: "Sun, 12 May 2030"
+            },
+
+            may2030: {
+                q1: "Sun, 14 Jul 2030",
+                q2: "Sun, 11 Aug 2030",
+                et: "Sun, 08 Sep 2030"
+            },
+
+            sep2030: {
+                q1: "Sun, 10 Nov 2030",
+                q2: "Sun, 01 Dec 2030",
+                et: "Sun, 05 Jan 2031"
+            }
+
         };
 
+        /* UPDATE EXAM DATES */
+
         function updateDates() {
+
             const t = terms[term.value];
-            if (!t) { dq1.innerText="--"; dq2.innerText="--"; det.innerText="--"; return; }
-            dq1.innerText = t.q1; dq2.innerText = t.q2; det.innerText = t.et;
+
+            if (!t) {
+
+                dq1.innerText = "--";
+                dq2.innerText = "--";
+                det.innerText = "--";
+
+                return;
+            }
+
+            dq1.innerText = t.q1;
+            dq2.innerText = t.q2;
+            det.innerText = t.et;
         }
+
     </script>
+
 </body>
 </html>
